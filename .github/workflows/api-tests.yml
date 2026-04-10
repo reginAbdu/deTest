@@ -118,24 +118,6 @@ jobs:
               });
             }
 
-      - name: Slack Notification
-        if: failure()
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "🚨 deBridge API Tests Failed - ${{ github.event.inputs.environment }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*deBridge API Tests Failed*\n*Environment:* ${{ github.event.inputs.environment }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>"
-                  }
-                }
-              ]
-            }
 
       - name: Test Report Summary
         if: always()
