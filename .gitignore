@@ -1,0 +1,21 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.playwright/
+
+# Environment — contains private keys, never commit!
+.env
+.env.local
+
+# Order creation spec uses real testnet transactions — not for CI
+tests/order.create.spec.ts
+
+# IDE
+.idea/
+
+# Misc artifacts
+parse_har.py
+install.sh
+QUICK_REFERENCE.txt
+
