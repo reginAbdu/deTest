@@ -17,12 +17,12 @@ export default defineConfig({
   ],
   use: {
     baseURL: process.env['BASE_URL'] || 'https://stats-api.dln.trade',
-    trace: 'on',
+    trace: 'retain-on-failure',
     httpCredentials: process.env['API_AUTH'] ? {
       username: process.env['API_USER'] || '',
       password: process.env['API_PASSWORD'] || '',
     } : undefined,
-    ignoreHTTPSErrors: true,
+    ignoreHTTPSErrors: process.env['IGNORE_HTTPS_ERRORS'] === 'true',
     extraHTTPHeaders: {
       'accept': 'application/json',
       'accept-language': 'en-US,en;q=0.9,ru-RU;q=0.8,ru;q=0.7',

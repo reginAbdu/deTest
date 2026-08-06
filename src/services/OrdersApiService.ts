@@ -96,10 +96,25 @@ export class OrdersApiService {
      */
     async getOrderById(orderId: string): Promise<Order> {
         const response = await this.page.request.get(
-            this.buildEndpoint(`/Orders/${orderId}`)
+            this.buildEndpoint(`/Orders/${encodeURIComponent(this.validateOrderId(orderId))}`)
         );
 
         return await this.handleResponse<Order>(response);
+    }
+
+    /**
+     * Order IDs are 32-byte hex values; anything else is rejected before it can
+     * alter the request path.
+     */
+    private validateOrderId(orderId: string): string {
+        if (!/^0x[a-fA-F0-9]{64}$/.test(orderId)) {
+            throw {
+                message: 'Request validation failed: Invalid order ID',
+                statusCode: 400,
+                details: { orderId },
+            } as ApiError;
+        }
+        return orderId;
     }
 
     async getFilteredOrdersWithRetry(

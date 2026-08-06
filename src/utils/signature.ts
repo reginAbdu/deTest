@@ -7,6 +7,7 @@
  * Reference: https://eips.ethereum.org/EIPS/eip-712
  */
 
+import { randomInt } from 'crypto';
 import { ethers } from 'ethers';
 
 // ─── EIP-712 Domain ────────────────────────────────────────────────
@@ -93,6 +94,6 @@ export function encodeEvmAddress(address: string): string {
  * Generates a unique nonce for order creation.
  */
 export function generateOrderNonce(): bigint {
-    return BigInt(Date.now()) * 1000n + BigInt(Math.floor(Math.random() * 1000));
+    return BigInt(Date.now()) * 1000n + BigInt(randomInt(1000));
 }
 
